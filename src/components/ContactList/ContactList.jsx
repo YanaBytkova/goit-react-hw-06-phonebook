@@ -1,8 +1,11 @@
 
 import css from './ContactList.module.css';
 import { ContactItem } from 'components/ContactItem/ContactItem';
-const ContactList = ({contacts, handleDeleteContacts}) => {
+// import { useSelector } from 'react-redux';
 
+const ContactList = ({contacts, handleDeleteContacts}) => {
+  // const contacts = useSelector(state => state.contactsStore.contacts);
+  console.log(contacts);
   return (
       <div>
         

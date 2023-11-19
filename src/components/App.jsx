@@ -1,5 +1,8 @@
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useEffect, useState } from 'react';
+import { addContact, deleteContact, filterContact, inputFilter} from 'redux/contacts/contacts.reducer';
+// import { inputFilter } from 'redux/filter/filter.reducer';
+// import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Filtering from 'components/Filtering/Filtering';
 import ContactForm from 'components/ContactForm/ContactForm';
@@ -7,21 +10,24 @@ import ContactList from 'components/ContactList/ContactList';
 import css from './App.module.css';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contactsStore.contacts);
+  const filter = useSelector(state => state.contactsStore.filter);
 
-  const [contacts, setContacts] = useState(() => {
-    const stringifiedContacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(stringifiedContacts);
+  // const [contacts, setContacts] = useState(() => {
+  //   const stringifiedContacts = localStorage.getItem('contacts');
+  //   const parsedContacts = JSON.parse(stringifiedContacts);
 
-    return parsedContacts;
-  });
+  //   return parsedContacts;
+  // });
 
-      const [filter, setFilter] = useState('');
+      // const [filter, setFilter] = useState('');
 
 
-      useEffect(() => {
-        const stringifiedContacts = JSON.stringify(contacts);
-        localStorage.setItem('contacts', stringifiedContacts);
-      }, [contacts]);
+      // useEffect(() => {
+      //   const stringifiedContacts = JSON.stringify(contacts);
+      //   localStorage.setItem('contacts', stringifiedContacts);
+      // }, [contacts]);
 
 
 const handleAddProduct = contactData => {
@@ -38,20 +44,24 @@ const handleAddProduct = contactData => {
         ...contactData,
         id: nanoid(),
       };
-      setContacts([...contacts, finalNames]);
+      dispatch(addContact(finalNames));
   
     };
 
     const handleDeleteContacts = contactId => {
-      setContacts(contacts.filter(contact => contact.id !== contactId));
+      dispatch(deleteContact(contactId));
     };
     
-  const getFilteredContacts = (value) => {
- 
-    if (value) {
-      const filterWord = value;
-      return contacts.filter(contact =>
-        contact.nameUser.toLowerCase().includes(filterWord.toLowerCase()))
+  const getFilteredContacts = () => {
+      console.log("filter", filter);
+    if (filter) {
+      // const filterWord = value;
+      console.log("value2: ", filter);
+      // return contacts.filter(contact =>
+      //   contact.nameUser.toLowerCase().includes(filterWord.toLowerCase()))
+      
+      dispatch(filterContact(filter));
+      // return contacts
       
     } 
     return contacts
@@ -59,7 +69,9 @@ const handleAddProduct = contactData => {
 
   const handleInputFilter = event => {
     const value = event.target.value;
-    setFilter(value);
+    dispatch(inputFilter(value));
+    
+    // setFilter(value);
   };
  
     return (
