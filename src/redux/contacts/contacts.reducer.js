@@ -21,12 +21,12 @@ const contactsSlice = createSlice({
     deleteContact(state, { payload }) {
       state.contacts = state.contacts.filter(contact => contact.id !== payload);
     },
-    filterContact(state, { payload }) {
-        // console.log("payload", payload);
-        const filterWord = payload;
-        return state.contacts.filter(contact => contact.nameUser.toLowerCase().includes(filterWord.toLowerCase()));
+  //   filterContact(state, { payload }) {
+  //       // console.log("payload", payload);
+  //       const filterWord = payload;
+  //       return state.contacts.filter(contact => contact.nameUser.toLowerCase().includes(filterWord.toLowerCase()));
         
-  },
+  // },
   inputFilter(state, { payload }) {
     state.filter = payload;
    },
@@ -36,7 +36,7 @@ const contactsSlice = createSlice({
 });
 
 // Генератори екшен криейторів
-export const { deleteContact, addContact, filterContact, inputFilter} = contactsSlice.actions;
+export const { deleteContact, addContact, inputFilter} = contactsSlice.actions;
 // Редюсер слайсу
 export const contactsReducer = contactsSlice.reducer;
 
