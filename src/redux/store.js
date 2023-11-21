@@ -17,7 +17,7 @@ import { contactsReducer } from './contacts/contacts.reducer';
 const contactsConfig = {
   key: 'contacts',
   storage,
-  whitelist: ['contacts', 'filter'],
+  whitelist: ['contacts'],
 
 };
 

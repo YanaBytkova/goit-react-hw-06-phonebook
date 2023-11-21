@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const initialState = {
-  contacts: [], 
+  contacts: [],
+  filterContacts: [], 
   filter: "",
   
 };
@@ -15,29 +15,22 @@ const contactsSlice = createSlice({
   // Об'єкт редюсерів
   reducers: {
     addContact(state, { payload }) {
-      // state.products = [...state.products, payload];
       state.contacts.push(payload);
     },
     deleteContact(state, { payload }) {
       state.contacts = state.contacts.filter(contact => contact.id !== payload);
     },
-  //   filterContact(state, { payload }) {
-  //       // console.log("payload", payload);
-  //       const filterWord = payload;
-  //       return state.contacts.filter(contact => contact.nameUser.toLowerCase().includes(filterWord.toLowerCase()));
-        
-  // },
+    filterContact(state, { payload }) {
+      state.filterContacts = state.contacts.filter(contact => contact.nameUser.toLowerCase().includes(payload.toLowerCase()));
+  },
   inputFilter(state, { payload }) {
     state.filter = payload;
-   },
-   
+   }, 
 
 },
 });
 
-// Генератори екшен криейторів
-export const { deleteContact, addContact, inputFilter} = contactsSlice.actions;
-// Редюсер слайсу
+export const { deleteContact, addContact, filterContact, inputFilter} = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
 
 
